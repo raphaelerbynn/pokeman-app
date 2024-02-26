@@ -1,0 +1,1 @@
+export { default as homePokemanImg } from "./home_pokeman.svg"
