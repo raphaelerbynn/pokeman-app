@@ -6,7 +6,6 @@ export const UiContext = createContext(null)
 export const UiProvider = ({ children }) => {
     const [themeColor, setThemeColor] = useState("#E85382")
 
-
     const contextVals = {
         themeColor, setThemeColor
     }
@@ -15,3 +14,4 @@ export const UiProvider = ({ children }) => {
         <UiContext.Provider value={contextVals}>{children}</UiContext.Provider>
       );
 };
+

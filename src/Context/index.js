@@ -1,5 +1,4 @@
-import { UiProvider } from "./uiContext";
-import { UiContext } from "./uiContext";
+import { UiProvider, UiContext } from "./UI";
 
 export {
     UiProvider,
