@@ -1,5 +1,5 @@
 import { Routes, Route, Navigate } from "react-router-dom"
-import { HomePage } from "../Pages"
+import { HomePage, ListViewPage } from "../Pages"
 
 const AppRoutes = () => {
     return (
@@ -7,6 +7,7 @@ const AppRoutes = () => {
             <Route path="/" >
                 <Route index element={<Navigate to="home" />} />
                 <Route index path="home" element={<HomePage />} />
+                <Route index path="list-view" element={<ListViewPage />} />
             </Route>    
         </Routes>
     )
