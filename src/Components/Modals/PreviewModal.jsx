@@ -20,7 +20,7 @@ const PreviewModal = ({ isOpen, onClose }) => {
     return (
         <ModalWrapper isOpen={isOpen}>
             <div className="flex justify-end h-full w-full overflow-auto">
-                <div className="flex flex-col gap-4 justify-between p-3 w-[45%] bg-white overflow-auto">
+                <div className="flex flex-col gap-4 justify-between p-3 md:w-[60%] lg:w-[45%] bg-white overflow-auto">
                     <div className="h-[25vh] w-full rounded-[18px] relative "
                     style={{
                         boxShadow: "inset 0 5px 10px rgba(0, 0, 0, 0.1)",

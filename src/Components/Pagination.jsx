@@ -41,14 +41,14 @@ const Pagination = ({ currentPage, totalPages, onPageChange }) => {
     };
 
   return (
-    <div className="flex gap-2">
-        <button className="rounded-lg flex items-center justify-center w-10 h-10 bg-[#E1E1E1] disabled:opacity-50" onClick={() => onPageChange(currentPage - 1)} disabled={currentPage <= 1}>
+    <div className="flex items-center gap-1 md:gap-2">
+        <button className="rounded-lg flex items-center justify-center w-6 h-6 md:w-10 md:h-10 bg-[#E1E1E1] disabled:opacity-50" onClick={() => onPageChange(currentPage - 1)} disabled={currentPage <= 1}>
             <img src={ArrowIcon} alt="" />
         </button>
         {totalPages > 1 && 
             <>
             {getPageNumbers().map((pageNumber, index) => (
-              <button className="text-[20px]  rounded-lg flex items-center justify-center w-10 h-10 "
+              <button className="md:text-[20px]  rounded-lg flex items-center justify-center h-7 w-7 md:w-10 md:h-10 "
                 key={index}
                 style={{
                   backgroundColor: currentPage === pageNumber ? themeColor : "#E1E1E1",
@@ -65,7 +65,7 @@ const Pagination = ({ currentPage, totalPages, onPageChange }) => {
             ))}
             </>
         }
-        <button className="rounded-lg flex items-center justify-center w-10 h-10 bg-[#E1E1E1] disabled:opacity-50" onClick={() => onPageChange(currentPage + 1)} disabled={currentPage >= totalPages}>
+        <button className="rounded-lg flex items-center justify-center w-6 h-6 md:w-10 md:h-10 bg-[#E1E1E1] disabled:opacity-50" onClick={() => onPageChange(currentPage + 1)} disabled={currentPage >= totalPages}>
             <img src={ArrowIcon} alt="" className="rotate-180" />
         </button>
     </div>

@@ -12,9 +12,11 @@ export const DataProvider = ({ children }) => {
     const handleSearch = async (name) => {
         try {
             const data = await searchPokemonWithName(name)
-            setSearchedPokemon(data)
+            setSearchedPokemon([data])
+            
         } catch (error) {
             console.error(error)
+            setSearchedPokemon(["Not Pokemon Found"])
         }
     }
 
@@ -23,7 +25,7 @@ export const DataProvider = ({ children }) => {
             const _fetchPokemon = async () => {
                 try {
                     const data = await fetchPokemon();
-                    // console.log(data)
+                    console.log(data)
                     setPokemons(data.results);
                 } catch (e) {
                     console.log(e)

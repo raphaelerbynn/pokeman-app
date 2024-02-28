@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { Fragment, useContext, useEffect, useState } from "react";
 import { ArrowIcon } from "../assets/icons";
 import { ListCard, Navbar, Pagination, PreviewModal } from "../Components";
 import { DataContext } from "../Context";
@@ -12,7 +12,6 @@ const ListView = () => {
     const [pokemonsToShow, setPokemonsToShow] = useState([])
     const [totalPages, setTotalPages] = useState([])
     const [showPageSizeOptions, setShowPageSizeOptions] = useState(false)
-    const [_pokemons, _setPokemons] = useState([])
     // tiems per page 
     const pageSizes = [8, 12, 16, 24]
 
@@ -37,8 +36,8 @@ const ListView = () => {
                 const detailsFetch = pokemonsWithoutDetails.map(name => searchPokemonWithName(name));
                 const detailsResults = await Promise.all(detailsFetch);
                 // console.log(detailsResults)
-
-                const updatedPokemons = _pokemons.map(pokemon => {
+                
+                const updatedPokemons = pokemons.map(pokemon => {
                     if (pokemonsWithoutDetails.includes(pokemon.name)) {
                         return detailsResults.find(details => details.name === pokemon.name)
                     }
@@ -57,41 +56,42 @@ const ListView = () => {
     }
 
     useEffect(() => {
-        const _pokemonsToShow = _pokemons?.slice(indexOfFirstItem, indexOfLastItem);
-        const _totalPages = Math.ceil(_pokemons.length / itemsPerPage);
+        const _pokemonsToShow = pokemons?.slice(indexOfFirstItem, indexOfLastItem);
+        const _totalPages = Math.ceil(pokemons.length / itemsPerPage);
 
-        setPokemonsToShow(_pokemonsToShow)
+        setPokemonsToShow(searchedPokemon.length > 0 ? searchedPokemon : _pokemonsToShow)
         setTotalPages(_totalPages)
 
-      }, [_pokemons, indexOfFirstItem, indexOfLastItem, itemsPerPage]);
+      }, [pokemons, indexOfFirstItem, indexOfLastItem, itemsPerPage, searchedPokemon]);
 
     useEffect(() => {
         getPokemonDetails()
     }, [pokemonsToShow])
 
-
-    useEffect(() => {
-        console.log(searchedPokemon)
-        if (searchedPokemon.length > 0) {
-            _setPokemons(searchedPokemon)
-        } else {
-            _setPokemons(pokemons)
-        }
-    }, searchedPokemon, pokemons)
-
     return (
         <>
             <PreviewModal isOpen={openPreview} onClose={() => setOpenPreview(false)} />
-            <div className="flex flex-col w-full">
+            <div className="flex flex-col w-full min-h-screen">
                 <Navbar />
-                <div className="flex flex-col gap-14 border-black items-center w-full h-full px-[60px] pt-[60px] pb-[20px] overflow-auto">
-                    <div className="flex-1 grid grid-cols-4 gap-x-5 gap-y-16 h-full w-full">
+                <div className="flex flex-col gap-14 border-black items-center w-full h-full px-4 md:px-[60px] pt-[60px] pb-[20px] overflow-auto">
+                    <div className={`flex-1 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-5 gap-y-16 h-full w-full`}>
                         {pokemonsToShow?.map((data, i) => (
-                            <ListCard info={data} key={i} onPreview={() => handlePreview(data)} />
+                            <Fragment key={i}>
+                            {searchedPokemon.length > 0 ?
+                                (<>
+                                    {
+                                        typeof(data) === "string" ? 
+                                            <p className="font-[ClashDisplay-Semibold] text-[40px]">{data}</p> : 
+                                            <ListCard info={data} onPreview={() => handlePreview(data)} isSearched={searchedPokemon.length > 0} />
+                                    }
+                                </>) :
+                                <ListCard info={data} onPreview={() => handlePreview(data)} isSearched={searchedPokemon.length > 0} />
+                            }
+                            </Fragment>
                         ))}
                     </div>
                     
-                    <div className="flex items-center justify-between w-full font-[ClashDisplay-Medium] pb-[100px]">
+                    {searchedPokemon.length < 1 && <div className="flex items-center justify-between w-full font-[ClashDisplay-Medium] pb-[100px]">
                         {/* pagination */}
                         <Pagination
                             currentPage={curPageNum}
@@ -102,20 +102,20 @@ const ListView = () => {
                         {/* dropdown */}
                         <div className="relative">
                             <div className=" flex gap-3 items-center p-1 pr-3 rounded-[10px] bg-[#E1E1E1]" onClick={() => {setShowPageSizeOptions(!showPageSizeOptions)}}>
-                                <span className="text-[20px] rounded-lg px-3 bg-white">8</span>
+                                <span className="md:text-[20px] rounded-lg px-3 bg-white">8</span>
                                 <img src={ArrowIcon} alt="" className="-rotate-90" />
                             </div>
                             {/* options */}
-                            {showPageSizeOptions && <div className="bg-white flex flex-col p-1 absolute top-[110%] right-0 border text-[20px] rounded-[10px]">
+                            {showPageSizeOptions && <div className="bg-white flex flex-col p-1 absolute top-[110%] right-0 border md:text-[20px] rounded-[10px]">
                                 {pageSizes.filter(val => val !== itemsPerPage).map((val, i) => (
                                     <button onClick={() => {
                                         setItemsPerPage(val);
                                         setShowPageSizeOptions(false)
-                                    }} key={i} className={`px-10 rounded-lg hover:bg-[#F3F3F3]`}>{val}</button>
+                                    }} key={i} className={`px-6 md:px-10 rounded-lg hover:bg-[#F3F3F3]`}>{val}</button>
                                 ))}
                             </div>}
                         </div>
-                    </div>
+                    </div>}
                 </div>
             </div>
         </>
