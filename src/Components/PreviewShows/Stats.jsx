@@ -1,8 +1,11 @@
 import { useContext } from "react";
-import { UiContext } from "../../Context";
+import { DataContext, UiContext } from "../../Context";
 
 const Stats = () => {
     const { themeColor } = useContext(UiContext)
+    const { selectedPokemon } = useContext(DataContext)
+
+    console.log(selectedPokemon?.stats?.find(val => val?.stat?.name === "hp")?.base_stat)
     
     return (
         <>
@@ -23,11 +26,11 @@ const Stats = () => {
                     <div className="flex-1 flex items-center gap-3 font-[ClashDisplay-Semibold]">
                         <div className="flex-1 relative h-2 bg-[#CBCBCB]">
                             <div className="h-full" style={{
-                                width: `${60}%`,
+                                width: `${selectedPokemon?.stats?.find(val => val?.stat?.name === "hp")?.base_stat}%`,
                                 background: themeColor
                             }}></div>
                         </div>
-                        <span>60</span>
+                        <span>{selectedPokemon?.stats?.find(val => val?.stat?.name === "hp")?.base_stat}</span>
                     </div>
                 </div>
                 <div className=" py-2 flex items-center justify-center gap-8 text-lg" style={{
@@ -37,11 +40,11 @@ const Stats = () => {
                     <div className="flex-1 flex items-center gap-3 font-[ClashDisplay-Semibold]">
                         <div className="flex-1 relative h-2 bg-[#CBCBCB]">
                             <div className="h-full" style={{
-                                width: `${60}%`,
+                                width: `${selectedPokemon?.stats?.find(val => val?.stat?.name === "attack")?.base_stat}%`,
                                 background: themeColor
                             }}></div>
                         </div>
-                        <span>60</span>
+                        <span>{selectedPokemon?.stats?.find(val => val?.stat?.name === "attack")?.base_stat}</span>
                     </div>
                 </div>
                 <div className=" py-2 flex items-center justify-center gap-8 text-lg" style={{
@@ -51,11 +54,11 @@ const Stats = () => {
                     <div className="flex-1 flex items-center gap-3 font-[ClashDisplay-Semibold]">
                         <div className="flex-1 relative h-2 bg-[#CBCBCB]">
                             <div className="h-full" style={{
-                                width: `${60}%`,
+                                width: `${selectedPokemon?.stats?.find(val => val?.stat?.name === "defense")?.base_stat}%`,
                                 background: themeColor
                             }}></div>
                         </div>
-                        <span>60</span>
+                        <span>{selectedPokemon?.stats?.find(val => val?.stat?.name === "defense")?.base_stat}</span>
                     </div>
                 </div>
                 <div className=" py-2 flex items-center justify-center gap-8 text-lg" style={{
@@ -65,11 +68,11 @@ const Stats = () => {
                     <div className="flex-1 flex items-center gap-3 font-[ClashDisplay-Semibold]">
                         <div className="flex-1 relative h-2 bg-[#CBCBCB]">
                             <div className="h-full" style={{
-                                width: `${60}%`,
+                                width: `${selectedPokemon?.stats?.find(val => val?.stat?.name === "special-attack")?.base_stat}%`,
                                 background: themeColor
                             }}></div>
                         </div>
-                        <span>60</span>
+                        <span>{selectedPokemon?.stats?.find(val => val?.stat?.name === "special-attack")?.base_stat}</span>
                     </div>
                 </div>
                 <div className=" py-2 flex items-center justify-center gap-8 text-lg" style={{
@@ -79,11 +82,11 @@ const Stats = () => {
                     <div className="flex-1 flex items-center gap-3 font-[ClashDisplay-Semibold]">
                         <div className="flex-1 relative h-2 bg-[#CBCBCB]">
                             <div className="h-full" style={{
-                                width: `${60}%`,
+                                width: `${selectedPokemon?.stats?.find(val => val?.stat?.name === "special-defense")?.base_stat}%`,
                                 background: themeColor
                             }}></div>
                         </div>
-                        <span>60</span>
+                        <span>{selectedPokemon?.stats?.find(val => val?.stat?.name === "special-defense")?.base_stat}</span>
                     </div>
                 </div>
                 <div className=" py-2 flex items-center justify-center gap-8 text-lg" style={{
@@ -93,11 +96,11 @@ const Stats = () => {
                     <div className="flex-1 flex items-center gap-3 font-[ClashDisplay-Semibold]">
                         <div className="flex-1 relative h-2 bg-[#CBCBCB]">
                             <div className="h-full" style={{
-                                width: `${60}%`,
+                                width: `${selectedPokemon?.stats?.find(val => val?.stat?.name === "speed")?.base_stat}%`,
                                 background: themeColor
                             }}></div>
                         </div>
-                        <span>60</span>
+                        <span>{selectedPokemon?.stats?.find(val => val?.stat?.name === "speed")?.base_stat}</span>
                     </div>
                 </div>
             </div>

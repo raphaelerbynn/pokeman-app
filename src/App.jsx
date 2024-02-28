@@ -1,15 +1,17 @@
 import { BrowserRouter } from "react-router-dom"
 import AppRoutes from "./routes"
-import { UiProvider } from "./Context"
+import { DataProvider, UiProvider } from "./Context"
 
 function App() {
 
   return (
-    <UiProvider>
-      <BrowserRouter>
-        <AppRoutes />
-      </BrowserRouter>
-    </UiProvider>
+    <DataProvider>
+      <UiProvider>
+        <BrowserRouter>
+          <AppRoutes />
+        </BrowserRouter>
+      </UiProvider>
+    </DataProvider>
   )
 }
 

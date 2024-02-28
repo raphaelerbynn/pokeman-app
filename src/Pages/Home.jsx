@@ -1,12 +1,33 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { homePokemanImg } from "../assets/images"
-import { UiContext } from "../Context";
+import { DataContext, UiContext } from "../Context";
 import { SearchIcon } from "../assets/icons";
 import { useNavigate } from "react-router-dom"
 
+
 const Home = () => {
     const { themeColor } = useContext(UiContext);
+    const { handleSearch, setSearchedPokemon } = useContext(DataContext);
     const navigate = useNavigate()
+    const [searchText, setSearchText] = useState("")
+
+    const handleOnSearch = async () => {
+        if(searchText) {
+            await handleSearch(searchText)
+            navigate("/list-view")
+        }
+    }
+
+    const handleOnChange = (e) => {
+        const val = e.target.value;
+        setSearchText(val.toLowerCase());
+    }
+
+    const handleKeyDown = (e) => {
+        if (e.key === 'Enter') {
+            handleOnSearch();
+        }
+    }
 
     return (
         <>
@@ -31,14 +52,18 @@ const Home = () => {
                         <div className="flex items-center justify-between p-2 pl-4  border-[7px] rounded-full" style={{
                             borderColor: themeColor
                         }}>
-                            <input className="text-[20px]" type="text" placeholder="Enter pokeman name" />
+                            <input className="text-[20px]" type="text" placeholder="Enter pokeman name" onChange={handleOnChange} onKeyDown={handleKeyDown} />
                             <button className="w-12 h-12 rounded-full flex items-center justify-center shadow-lg" style={{
                                 background: themeColor
-                            }}>
+                            }}
+                            onClick={handleOnSearch}>
                                 <SearchIcon />
                             </button>
                         </div>
-                        <button className="underline text-lg font-medium" onClick={() => navigate("/list-view")}>View all</button>
+                        <button className="underline text-lg font-medium" onClick={() => {
+                            setSearchedPokemon([])
+                            navigate("/list-view")
+                        }}>View all</button>
                     </div>
                 </div>
             </div>
